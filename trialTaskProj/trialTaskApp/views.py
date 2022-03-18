@@ -4,15 +4,15 @@ from bs4 import BeautifulSoup
 
 # Getting articles from Habr
 
-toi_r = requests.get("https://habr.com/ru/all/")
-toi_soup = BeautifulSoup(toi_r.content, 'html5lib')
-toi_headings = toi_soup.find_all('h2')
-toi_headings = toi_headings[0:-13]
-toi_news = []
+r = requests.get("https://habr.com/ru/all/")
+soup = BeautifulSoup(r.content, 'html.parser')
+headings = soup.find_all('h2')
+toi_headings = headings[0:-13]
+news = []
 
-for th in toi_headings:
-    toi_news.append(th.text)
+for i in toi_headings:
+    news.append(i.text)
 
 
 def index(req):
-    return render(req, 'trialTaskApp/index.html', {'toi_news': toi_news})
+    return render(req, 'trialTaskApp/index.html', {'news': news})
