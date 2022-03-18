@@ -34,28 +34,28 @@ page = 1
 #         break
 
 
-def download_document(pid):
-    """ Download and process a Habr document and its comments """
-    # выгрузка документа
-    r = requests.get('https://habrahabr.ru/post/' + str(pid) + '/')
-    # парсинг документа
-    soup = BeautifulSoup(r.text, 'html5lib') # instead of html.parser
-    doc = {}
-    doc['id'] = pid
-    if not soup.find("span", {"class": "post__title-text"}):
-        # такое бывает, если статья не существовала или удалена
-        doc['status'] = 'title_not_found'
-    else:
-        doc['status'] = 'ok'
-        doc['title'] = soup.find("span", {"class": "post__title-text"}).text
-        doc['text'] = soup.find("div", {"class": "post__text"}).text
-        doc['time'] = soup.find("span", {"class": "post__time"}).text
-        # create other fields: hubs, tags, views, comments, votes, etc.
-        # ...
-    # сохранение результата в отдельный файл
-    fname = r'files/' + str(pid) + '.pkl'
-    with open(fname, 'wb') as f:
-        pickle.dump(doc, f)
+# def download_document(pid):
+#     """ Download and process a Habr document and its comments """
+#     # выгрузка документа
+#     r = requests.get('https://habrahabr.ru/post/' + str(pid) + '/')
+#     # парсинг документа
+#     soup = BeautifulSoup(r.text, 'html5lib') # instead of html.parser
+#     doc = {}
+#     doc['id'] = pid
+#     if not soup.find("span", {"class": "post__title-text"}):
+#         # такое бывает, если статья не существовала или удалена
+#         doc['status'] = 'title_not_found'
+#     else:
+#         doc['status'] = 'ok'
+#         doc['title'] = soup.find("span", {"class": "post__title-text"}).text
+#         doc['text'] = soup.find("div", {"class": "post__text"}).text
+#         doc['time'] = soup.find("span", {"class": "post__time"}).text
+#         # create other fields: hubs, tags, views, comments, votes, etc.
+#         # ...
+#     # сохранение результата в отдельный файл
+#     fname = r'files/' + str(pid) + '.pkl'
+#     with open(fname, 'wb') as f:
+#         pickle.dump(doc, f)
 
 # Getting news from Habr
 
