@@ -13,15 +13,6 @@ toi_news = []
 for th in toi_headings:
     toi_news.append(th.text)
 
-ht_r = requests.get("https://habr.com/ru/news/")
-ht_soup = BeautifulSoup(ht_r.content, 'html5lib')
-ht_headings = ht_soup.findAll("div", {"class": "headingfour"})
-ht_headings = ht_headings[2:]
-ht_news = []
-
-for hth in ht_headings:
-    ht_news.append(hth.text)
-
 
 def index(req):
-    return render(req, 'trialTaskApp/index.html', {'toi_news': toi_news, 'ht_news': ht_news})
+    return render(req, 'trialTaskApp/index.html', {'toi_news': toi_news})
